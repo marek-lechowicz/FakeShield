@@ -1,0 +1,19 @@
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.cpython-*.pyc
+
+# Local weights (if you want to keep them out of git)
+weight/fakeshield-v1-22b/
+weight/*.pth
+
+# Demo outputs
+playground/DTE-FDM_output.jsonl
+playground/MFLM_output/*
+!playground/MFLM_output/.gitkeep
+
+dataset/tifs-database
+*/__pycache__/*
