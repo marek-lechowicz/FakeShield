@@ -1,0 +1,5 @@
+.venv/bin/python scripts/compute_metrics.py \
+    --question-jsonl playground/fakeflickr_flux_1_dev_question.jsonl \
+    --dte-output    playground/fakeflickr_flux_1_dev_dte_fdm.jsonl \
+    --mflm-dir      playground/fakeflickr_flux_1_dev_mflm_output \
+    --output        fakeflickr_flux_1_dev_results.txt

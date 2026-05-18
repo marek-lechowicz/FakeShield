@@ -27,7 +27,10 @@ class CLIPVisionTower(nn.Module):
             return
 
         self.image_processor = CLIPImageProcessor.from_pretrained(self.vision_tower_name)
-        self.vision_tower = CLIPVisionModel.from_pretrained(self.vision_tower_name, device_map=device_map)
+        
+        # CLIPVisionModel does not always support device_map='auto'
+        vision_tower_device_map = device_map if device_map != 'auto' else None
+        self.vision_tower = CLIPVisionModel.from_pretrained(self.vision_tower_name, device_map=vision_tower_device_map)
         self.vision_tower.requires_grad_(False)
 
         self.is_loaded = True

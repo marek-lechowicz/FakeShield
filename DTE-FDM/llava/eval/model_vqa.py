@@ -81,7 +81,13 @@ def eval_model(args):
     # model_name = get_model_name_from_path(model_path)
     model_name = "llava-v1.5-13b"
     DTG = DomainTagGenerator(model_path=args.DTG_path)
-    tokenizer, model, image_processor, context_len = load_pretrained_model(model_path, args.model_base, model_name)
+    extra_kwargs = {}
+    if args.cpu_offload_gib > 0:
+        extra_kwargs['max_memory'] = {0: f"{args.cpu_offload_gib}GiB", "cpu": "60GiB"}
+    tokenizer, model, image_processor, context_len = load_pretrained_model(
+        model_path, args.model_base, model_name,
+        args.load_8bit, args.load_4bit, **extra_kwargs,
+    )
 
     questions = [json.loads(q) for q in open(os.path.expanduser(args.question_file), "r")]
     questions = get_chunk(questions, args.num_chunks, args.chunk_idx)
@@ -127,7 +133,7 @@ def eval_model(args):
                 top_p=args.top_p,
                 num_beams=args.num_beams,
                 # no_repeat_ngram_size=3,
-                max_new_tokens=1024,
+                max_new_tokens=args.max_new_tokens,
                 use_cache=True)
 
         outputs = tokenizer.batch_decode(output_ids, skip_special_tokens=True)[0].strip()
@@ -153,6 +159,12 @@ if __name__ == "__main__":
     parser.add_argument("--temperature", type=float, default=0.2)
     parser.add_argument("--top_p", type=float, default=None)
     parser.add_argument("--num_beams", type=int, default=1)
+    parser.add_argument("--max-new-tokens", type=int, default=1024)
+    parser.add_argument("--load-8bit", action="store_true")
+    parser.add_argument("--load-4bit", action="store_true")
+    parser.add_argument("--cpu-offload-gib", type=float, default=0,
+                        help="If > 0, load model in fp16 with HF accelerate CPU offload, "
+                             "capping GPU usage at this many GiB.")
     args = parser.parse_args()
 
     eval_model(args)

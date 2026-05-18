@@ -79,7 +79,14 @@ def DTE_FDM_init(args):
     disable_torch_init()
     model_name = "llava-v1.5-13b"
     DTG = DomainTagGenerator(model_path=args.DTG_path)
-    tokenizer, model, image_processor, context_len = load_pretrained_model(args.model_path, args.model_base, model_name, args.load_8bit, args.load_4bit, device=args.device)
+    extra_kwargs = {}
+    if args.cpu_offload_gib > 0:
+        extra_kwargs['max_memory'] = {0: f"{args.cpu_offload_gib}GiB", "cpu": "60GiB"}
+    tokenizer, model, image_processor, context_len = load_pretrained_model(
+        args.model_path, args.model_base, model_name,
+        args.load_8bit, args.load_4bit, device=args.device,
+        **extra_kwargs,
+    )
 
     if "llama-2" in model_name.lower():
         conv_mode = "llava_llama_2"
@@ -191,6 +198,9 @@ if __name__ == "__main__":
     parser.add_argument("--max-new-tokens", type=int, default=4096)
     parser.add_argument("--load-8bit", action="store_true")
     parser.add_argument("--load-4bit", action="store_true")
+    parser.add_argument("--cpu-offload-gib", type=float, default=0,
+                        help="If > 0, load model in fp16 with HF accelerate CPU offload, "
+                             "capping GPU usage at this many GiB (rest spills to CPU RAM).")
     parser.add_argument("--debug", action="store_true")
     args = parser.parse_args()
     DTE_FDM_cli(args)

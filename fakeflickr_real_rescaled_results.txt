@@ -1,0 +1,13 @@
+Images scored : 1000  (tampered=1000, clean=0)
+Localization averaged over 1000 tampered images with GT mask
+
+  test_acc               : 0.0700
+  test_auc               : nan
+  precision              : 1.0000
+  recall                 : 0.0700
+  average_precision      : nan
+  mcc                    : 0.0000
+  localization_f1_best   : 0.0218
+  localization_f1_th_0.5 : 0.0218
+  localization_iou_best  : 0.0160
+  localization_iou_th_0.5: 0.0160

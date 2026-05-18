@@ -32,7 +32,8 @@ def parse_args(args):
     parser.add_argument("--local-rank", default=0, type=int, help="node rank")
     parser.add_argument("--use_mm_start_end", action="store_true", default=True)
     parser.add_argument("--conv_type", default="llava_v1", type=str, choices=["llava_v1", "llava_llama_2"])
-
+    parser.add_argument("--load-4bit", action="store_true")
+    
     return parser.parse_args(args)
 
 EXPLANATORY_QUESTION_LIST = [
@@ -75,7 +76,8 @@ def initialize_model(args, tokenizer):
                   ["seg_token_idx", "bbox_token_idx", "eop_token_idx", "bop_token_idx"]}
 
     model = GLaMMForCausalLM.from_pretrained(
-        args.version, torch_dtype=torch.bfloat16, low_cpu_mem_usage=True, **model_args)
+        args.version, torch_dtype=torch.bfloat16, low_cpu_mem_usage=True, 
+        load_in_4bit=getattr(args, 'load_4bit', False), **model_args)
     print('\033[92m' + "---- Initialized model from: {} ----".format(args.version) + '\033[0m')
 
     # Configure model tokens
@@ -255,7 +257,7 @@ if __name__ == "__main__":
     DTE_FDM_output = read_jsonl(args.DTE_FDM_output)
     for input_image, input_text in DTE_FDM_output:
         if "has not been tampered with" in input_text:
-            print("The image has not been tampered with.")
+            print(f"The image {input_image} has not been tampered with.")
             print("No mask generated.")
             continue
 

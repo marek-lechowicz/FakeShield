@@ -1,0 +1,70 @@
+********************************************************
+Starting evaluation for: dataset/data/fakeflickr_flux_1_dev_test_list.txt
+********************************************************
+==== Step 1: Preparing Question File ====
+Created 1000 questions in ./playground/fakeflickr_flux_1_dev_question.jsonl
+==== Step 2: DTE-FDM Detection ====
+./playground/fakeflickr_flux_1_dev_dte_fdm.jsonl
+======== DTE_FDM Detect Begin ========
+======== The detection result is saved to ./playground/fakeflickr_flux_1_dev_dte_fdm.jsonl ========
+==== Step 3: MFLM Localization ====
+======== MFLM Model Loading ========
+[92m---- Initialized tokenizer from: ./weight/fakeshield-v1-22b/MFLM ----[0m
+[92m---- Initialized model from: ./weight/fakeshield-v1-22b/MFLM ----[0m
+[92m---- Initialized Global Image Encoder (vision tower) from: openai/clip-vit-large-patch14-336 ----[0m
+======== DTE_FDM Model Loaded ========
+======== MLFM Localization Begin ========
+==== Step 4: Metric Calculation ====
+Calculating IoU...
+
+Results for 1000 images:
+Mean IoU: 0.0000
+Finished evaluation for: dataset/data/fakeflickr_flux_1_dev_test_list.txt
+
+********************************************************
+Starting evaluation for: dataset/data/fakeflickr_sd_3_5_large_test_list.txt
+********************************************************
+==== Step 1: Preparing Question File ====
+Created 1000 questions in ./playground/fakeflickr_sd_3_5_large_question.jsonl
+==== Step 2: DTE-FDM Detection ====
+./playground/fakeflickr_sd_3_5_large_dte_fdm.jsonl
+======== DTE_FDM Detect Begin ========
+======== The detection result is saved to ./playground/fakeflickr_sd_3_5_large_dte_fdm.jsonl ========
+==== Step 3: MFLM Localization ====
+======== MFLM Model Loading ========
+[92m---- Initialized tokenizer from: ./weight/fakeshield-v1-22b/MFLM ----[0m
+[92m---- Initialized model from: ./weight/fakeshield-v1-22b/MFLM ----[0m
+[92m---- Initialized Global Image Encoder (vision tower) from: openai/clip-vit-large-patch14-336 ----[0m
+======== DTE_FDM Model Loaded ========
+======== MLFM Localization Begin ========
+==== Step 4: Metric Calculation ====
+Calculating IoU...
+
+Results for 1000 images:
+Mean IoU: 0.0000
+Finished evaluation for: dataset/data/fakeflickr_sd_3_5_large_test_list.txt
+
+********************************************************
+Starting evaluation for: dataset/data/fakeflickr_real_rescaled_test_list.txt
+********************************************************
+==== Step 1: Preparing Question File ====
+Created 1000 questions in ./playground/fakeflickr_real_rescaled_question.jsonl
+==== Step 2: DTE-FDM Detection ====
+./playground/fakeflickr_real_rescaled_dte_fdm.jsonl
+======== DTE_FDM Detect Begin ========
+======== The detection result is saved to ./playground/fakeflickr_real_rescaled_dte_fdm.jsonl ========
+==== Step 3: MFLM Localization ====
+======== MFLM Model Loading ========
+[92m---- Initialized tokenizer from: ./weight/fakeshield-v1-22b/MFLM ----[0m
+[92m---- Initialized model from: ./weight/fakeshield-v1-22b/MFLM ----[0m
+[92m---- Initialized Global Image Encoder (vision tower) from: openai/clip-vit-large-patch14-336 ----[0m
+======== DTE_FDM Model Loaded ========
+======== MLFM Localization Begin ========
+==== Step 4: Metric Calculation ====
+Calculating IoU...
+
+Results for 1000 images:
+Mean IoU: 0.0000
+Finished evaluation for: dataset/data/fakeflickr_real_rescaled_test_list.txt
+
+All evaluations completed.
